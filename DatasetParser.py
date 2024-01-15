@@ -116,7 +116,7 @@ def ArtMediumDataset(img_pro, train_hold=None, use_cache=True, split=(80, 10, 10
                     gray_img = gray_img_pro.PrepareImage(img)
 
                 new_img = np.asarray(img)
-                if edge_channel: # Converting PIL image in to CV2 image format
+                if edge_channel: # Converting PIL image into CV2 image format
                     cv_img = new_img[:, :, ::-1].copy()
                     cv_img = EdgeDetection(cv_img)
                     cv_img = np.expand_dims(cv_img, axis=-1)
@@ -125,7 +125,7 @@ def ArtMediumDataset(img_pro, train_hold=None, use_cache=True, split=(80, 10, 10
                     gray_img = np.expand_dims(gray_img, axis=-1) # Make array 3D. (Input: 230,230 - Output: 230,230,1)
                     new_img = np.concatenate((new_img, gray_img), axis=2) # Adding gray channel to array (Output: 230,230,4)
                 if edge_channel:
-                        new_img = np.concatenate((new_img, cv_img), axis=2) # Adding gray channel to array (Output: 230,230,5)
+                        new_img = np.concatenate((new_img, cv_img), axis=2) # Adding edge channel to array (Output: 230,230,5)
 
                 train_images.append(new_img)
                 train_labels.append(class_names.index(material))
